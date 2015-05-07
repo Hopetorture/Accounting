@@ -24,57 +24,64 @@ QVector<QString> uniqs;
 
 
     const QString ruble="Рублей";
+    const QString onerub="Рубль";
     const QString rublia="Рубля";
     const QString cops="Копеек";
+    const QString onecop="Копейка";
+   const QString cop2= "Копейки";
 
-
-    const QString units0="Ноль";
-    const QString units1="Один";
-    const QString units2="Два";
-    const QString units3="Три";
-    const QString units4="Четыре";
-    const QString units5="Пять";
-    const QString units6="Шесть";
-    const QString units7="Семь";
-    const QString units8="Восемь";
-    const QString units9="Девять";
-
-
-const QString uniqs10="Десять";
-    const QString uniqs11="Одинадцать";
-    const QString uniqs12="Двенадцать";
-    const QString uniqs13="Тринадцать";
-    const QString uniqs14="Четырнадцать";
-    const QString uniqs15="Пятнадцать";
-    const QString uniqs16="Шестнадцать";
-    const QString uniqs17="Семнадцать";
-    const QString uniqs18="Восемнадцать";
-    const QString uniqs19="Девятнадцать";
+   const QString dve="Двe";
+   const QString odna="Одна";
 
 
 
+//    const QString units0="Ноль";
+//    const QString units1="Один";
+//    const QString units2="Два";
+//    const QString units3="Три";
+//    const QString units4="Четыре";
+//    const QString units5="Пять";
+//    const QString units6="Шесть";
+//    const QString units7="Семь";
+//    const QString units8="Восемь";
+//    const QString units9="Девять";
 
-    const QString tens1="Десять";
-    const QString tens2="Двадцать";
-    const QString tens3="Тридцать";
-    const QString tens4="Сорок";
-    const QString tens5="Пятьдесят";
-    const QString tens6="Шестьдесят";
-    const QString tens7="Семьдесят";
-    const QString tens8="Восемьдесят";
-    const QString tens9="Девяносто";
+
+//const QString uniqs10="Десять";
+//    const QString uniqs11="Одинадцать";
+//    const QString uniqs12="Двенадцать";
+//    const QString uniqs13="Тринадцать";
+//    const QString uniqs14="Четырнадцать";
+//    const QString uniqs15="Пятнадцать";
+//    const QString uniqs16="Шестнадцать";
+//    const QString uniqs17="Семнадцать";
+//    const QString uniqs18="Восемнадцать";
+//    const QString uniqs19="Девятнадцать";
 
 
 
-    const QString hundreds1="Сто";
-    const QString hundreds2="Двести";
-    const QString hundreds3="Триста";
-    const QString hundreds4="Четыреста";
-    const QString hundreds5="Пятсот";
-    const QString hundreds6="Шестьсот";
-    const QString hundreds7="Семьсот";
-    const QString hundreds8="Восемьсот";
-    const QString hundreds9="Девятьсот";
+
+//    const QString tens1="Десять";
+//    const QString tens2="Двадцать";
+//    const QString tens3="Тридцать";
+//    const QString tens4="Сорок";
+//    const QString tens5="Пятьдесят";
+//    const QString tens6="Шестьдесят";
+//    const QString tens7="Семьдесят";
+//    const QString tens8="Восемьдесят";
+//    const QString tens9="Девяносто";
+
+
+
+//    const QString hundreds1="Сто";
+//    const QString hundreds2="Двести";
+//    const QString hundreds3="Триста";
+//    const QString hundreds4="Четыреста";
+//    const QString hundreds5="Пятсот";
+//    const QString hundreds6="Шестьсот";
+//    const QString hundreds7="Семьсот";
+//    const QString hundreds8="Восемьсот";
+//    const QString hundreds9="Девятьсот";
 
     const QString thousand="Тысяча";
     const QString thousands="Тысячи";
@@ -89,7 +96,12 @@ const QString uniqs10="Десять";
     const QString trill="Триллион";
    // сonst QString trills="Триллионов";
 
-    QString transist(QString Number);
+    QString transist(QString Rubles, QString Cops);
+    QString getEnding(int rubless);
+    QString getEnding(QString kopeck);
+    QString getTens(QCharRef &tens, QCharRef &units);
+    QString getHundreds(QCharRef &isHundreds, QCharRef &isTens, QCharRef &isUnits);
+
 
 
     words();
