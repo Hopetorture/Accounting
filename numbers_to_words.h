@@ -85,6 +85,7 @@ QVector<QString> uniqs;
 
     const QString thousand="Тысяча";
     const QString thousands="Тысячи";
+    const QString ttt="Тысяч";
 
     const QString mill="Миллион";
     const QString mills="Миллионов";
@@ -99,8 +100,11 @@ QVector<QString> uniqs;
     QString transist(QString Rubles, QString Cops);
     QString getEnding(int rubless);
     QString getEnding(QString kopeck);
-    QString getTens(QCharRef &tens, QCharRef &units);
-    QString getHundreds(QCharRef &isHundreds, QCharRef &isTens, QCharRef &isUnits);
+    QString getTens(QCharRef tens, QCharRef units);
+    QString getHundreds(QCharRef isHundreds, QCharRef isTens, QCharRef isUnits);
+    void trim(QString &h1);
+    QString getEndingThousand(QCharRef ru);
+   // void rubEndingCheck();
 
 
 
