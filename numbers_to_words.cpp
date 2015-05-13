@@ -140,6 +140,7 @@ QString words::getEnding(QString kopeck)
 }
 QString words::transist(QString Rubles,QString Cops)
 {
+
    while (Cops.size()>2)   {
         Cops.chop(1);
    }
@@ -155,8 +156,9 @@ QString words::transist(QString Rubles,QString Cops)
   cut+=Cops[1];
   qDebug()<<"B...";
   int cNumber=cut.toInt();
+
 // qDebug()<< cut;
- if(cNumber>=0&&cNumber<=9)
+ if(cNumber>0&&cNumber<=9)
      cOut=", "+units[cNumber]+" "+getEnding(cut);
     if(cNumber==2)
     {    cOut.replace("Два","Две");
@@ -188,6 +190,10 @@ QString words::transist(QString Rubles,QString Cops)
       cOut.remove("Ноль");
   }
     qDebug()<<"D...";
+    if(cut=="00")
+          {
+           cOut=" ,Ноль Копеек";
+           }
 
 
 int digits=Rubles.count();
@@ -322,7 +328,12 @@ qDebug()<<digits;
  }
  if(digits==8)
  {
+    //
+     // Написать work around для того, когда в getTens встречается 00. Юзать QString::insert ,
+     // вставлять перед запятой getEnding();
+      //
 
+     //
      //
      // NOT WORKING
      qDebug()<<"XXXXXXXXXXX";

@@ -98,6 +98,7 @@ QVector<QString> uniqs;
    // сonst QString trills="Триллионов";
 
     QString transist(QString Rubles, QString Cops);
+private:
     QString getEnding(int rubless);
     QString getEnding(QString kopeck);
     QString getTens(QCharRef tens, QCharRef units);
@@ -105,7 +106,7 @@ QVector<QString> uniqs;
     void trim(QString &h1);
     QString getEndingThousand(QCharRef ru);
    // void rubEndingCheck();
-
+public:
 
 
     words();

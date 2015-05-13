@@ -22,7 +22,7 @@ MainWindow::~MainWindow()
 
 bool MainWindow::on_pushButton_clicked()
 {
-
+   try{
    // std::cout<<std::fixed;
     words text;
     bool ok=false;
@@ -48,20 +48,30 @@ bool MainWindow::on_pushButton_clicked()
         double nal=rr*(percent/100);
 
         rr=rr+(rr*(percent/100));
-        int kmp1=rr.lastIndexOf(".");
-        int kmp2=nal.lastIndexOf(".");
+        QString kmp1=QString::number(rr,'f');
+        QString kmp2=QString::number(nal,'f');
+        int intkmp=kmp1.lastIndexOf(".");
+        int intkmp2=kmp2.lastIndexOf(".");
         //qDebug()<<"KMP ="<<kmp;
-        while(rr.size()>kmp1+3)
+        while(kmp1.size() > intkmp+3)
         {
-            rr.chop(1);
+            kmp1.chop(1);
         }
-        while(nal.size()>kmp2+3)
+        while(kmp2.size() > intkmp2+3)
         {
-            nal.chop(1);
+            kmp2.chop(1);
         }
-        ui->lineEdit_2->setText(QString::number(rr,'f'));
-        ui->NDS->setText(QString::number(nal,'f'));
- //      QString q=QString::number(rr);
+        QStringList crutchy=kmp1.split(".");
+        QString tr=crutchy[0];
+        QString ccc=crutchy[1];
+        ui->lineEdit_2->setText(kmp1);
+        ui->lineEdit_wordsRes->setText(text.transist(tr,ccc));
+        ui->NDS->setText(kmp2);
+         crutchy=kmp2.split(".");
+         tr=crutchy[0];
+         ccc=crutchy[1];
+       ui->lineEdit_WordsNDS->setText(text.transist(tr,ccc));
+//     QString q=QString::number(rr);
        // QString w=QString::number(nal);
  //        if(q.contains(","))
  //        {
@@ -247,6 +257,12 @@ bool MainWindow::on_pushButton_clicked()
      qDebug()<<"END...";
 
 
+   }
+    catch(...)
+    {
+        ui->lineEdit->setText("ОШИБКА");
+
+    }
 
 
    return 0;
