@@ -1,21 +1,16 @@
 #include "numbers_to_words.h"
 #include <QDebug>
 
- int count=0;
+
 void words::trim(QString &h1)
 {
     h1.remove(ruble);
     h1.remove(rublia);
     h1.remove(onerub);
-   // QString fff=h1[2];
-   // int qw=fff.toInt();
-   // qDebug()<<h1<<"  HERE!11 LOOK HERE";
-    //h1+=getEndingThousand(5);
+
     if(h1.contains("Один"))
       {
         h1.replace("Один","Одна");
-//        h1.remove(ttt);
-//        h1+=thousand;
     }
     if(h1.contains("Два"))
     {
@@ -38,6 +33,7 @@ QString words::getEndingThousand(QCharRef ru)
         return "Тысячи";
     if (rubless>=5)
         return "Тысячь";
+    return "Тысяь";
 }
 
 QString words::getEnding(int rubless)
@@ -48,25 +44,16 @@ QString words::getEnding(int rubless)
         return rublia;
     if (rubless>=5)
         return ruble;
+    return "Ошибка";
 }
 
 QString words::getHundreds(QCharRef isHundreds,QCharRef isTens,QCharRef isUnits)
 {
-    qDebug()<<"Inside1...";
-    // баг где-то тут.
     QString t=getTens(isTens,isUnits);
-    qDebug()<<"tens is: "<<t;
     QString h=isHundreds;
-    qDebug()<<h;
     int zxcv=h.toInt();
     QString zzz=hundreds[zxcv-1]+" "+t;
-    qDebug()<<zzz;
     return zzz;
-//    QString tmp=isTens;
-//    int dec=tmp.toInt();
-//    dec-=1;
-//    QString zxc=
-
 
 }
 
@@ -75,57 +62,44 @@ QString words::getTens(QCharRef t0,QCharRef ed1)
     QString fq=t0;
     QString fqq=ed1;
     if(fq=="0"&&fqq=="0")
-        return" ";
-    count++;
-    qDebug()<<"******************";
-    qDebug()<<"                  ";
-    qDebug()<<count;
-    qDebug()<<t0;
-    qDebug()<<ed1;
-     qDebug()<<"                  ";
-    qDebug()<<"****************";
-    qDebug()<<t0<<" "<<ed1;
+        return" ";    
+
 
     QString nmb=t0;
-    qDebug()<<nmb;
-
     nmb+=ed1;
-    qDebug()<<nmb;
    int rnumber=nmb.toInt();
-   qDebug()<<rnumber;
-   qDebug()<<"getTens start";
 
-   if(rnumber==1){
-        qDebug()<<"zxc1"<<uniqs[rnumber];
+   if(rnumber==1)
+   {
    return units[rnumber]+" "+onerub;
    }
    if(rnumber>1&&rnumber<5)
-   { qDebug()<<"getTens2"<<uniqs[rnumber];
-       return units[rnumber]+" "+rublia;}
-   if(rnumber>=5&&rnumber<10){
-        qDebug()<<"getTens3"<<uniqs[rnumber];
+   {
+       return units[rnumber]+" "+rublia;
+   }
+   if(rnumber>=5&&rnumber<10)
+   {
          return units[rnumber]+" "+ruble;
-      }
-    if(rnumber>=10&&rnumber<20){
-// ВОТ ТУТ ТО И ФЕЕЕЕЙЛ
+   }
+    if(rnumber>=10&&rnumber<20)
+    {
      return uniqs[rnumber-10]+" "+ ruble;
     }
     if(rnumber>=20)
     {
-        qDebug()<<">20 n1";
        QString s1=t0;
        int n1=s1.toInt();
-       qDebug()<<">20 n2";
        if(fqq=="0")
-       {qDebug()<<"ed1==0 block";
-              qDebug()<<"getTens4"<<tens[n1-1]<<" "<<getEnding(6);
-           return tens[n1-1]+" "+getEnding(6);}
+       {
+           return tens[n1-1]+" "+getEnding(6);
+       }
        s1=ed1;
        int n2=s1.toInt();
-          qDebug()<<"getTens5"<<tens[n1-1]<<" "<<units[n2]<<" "<<getEnding(n2);
-        return tens[n1-1]+" "+units[n2]+" "+getEnding(n2);
+
+       return tens[n1-1]+" "+units[n2]+" "+getEnding(n2);
 
     }
+    return"Ошибка";
 }
 
 QString words::getEnding(QString kopeck)
@@ -137,114 +111,84 @@ QString words::getEnding(QString kopeck)
         return cop2;
     if(c>=5)
         return cops;
+    return cops;
 }
 QString words::transist(QString Rubles,QString Cops)
 {
 
-   while (Cops.size()>2)   {
+   while (Cops.size()>2){
         Cops.chop(1);
-   }
+   }  
 
-
-  qDebug()<<"A...";
-  qDebug()<<Rubles;
-  qDebug()<<Cops;
-   if(Cops.count()<2)
+  while(Cops.count()<2)
+  {
        Cops+="0";   
+  }
+
   QString cOut;
   QString cut=Cops[0];
   cut+=Cops[1];
-  qDebug()<<"B...";
-  int cNumber=cut.toInt();
 
-// qDebug()<< cut;
- if(cNumber>0&&cNumber<=9)
-     cOut=", "+units[cNumber]+" "+getEnding(cut);
+
+  int cNumber=cut.toInt();
+ if(cNumber>0&&cNumber<=9) 
+        cOut=", "+units[cNumber]+" "+getEnding(cut);
+
     if(cNumber==2)
-    {    cOut.replace("Два","Две");
-         //  qDebug()<<"dvaaa!";
+    {
+        cOut.replace("Два","Две");
     }
 
- //541,12
+
   if(cNumber>=10&&cNumber<20){
-      cOut=", "+uniqs[cNumber-10]+" "+getEnding(cut);
-  //qDebug()<< cOut;
+        cOut=", "+uniqs[cNumber-10]+" "+getEnding(cut);
+
   }
-    qDebug()<<"C...";
+
   if(cNumber>=20)
-     { QString c1=Cops[0];
+     {
+     QString c1=Cops[0];
      int co1=c1.toInt();
      c1=Cops[1];
      int co2=c1.toInt();
      cOut=", "+tens[co1-1]+" "+units[co2]+" "+getEnding(cut);
-    // qDebug()<< cOut;
+
      if(co2==2)
-        { cOut.replace("Два","Две");
-       //  qDebug()<<"dvaaa!";
-     }
+        {
+         cOut.replace("Два","Две");
+        }
   }
 
   if(cOut.contains("Ноль"))
   {
-      qDebug()<<"contorl!!1";
       cOut.remove("Ноль");
   }
-    qDebug()<<"D...";
     if(cut=="00")
           {
            cOut=" ,Ноль Копеек";
-           }
+          }
 
 
 int digits=Rubles.count();
 int rNumber=Rubles.toInt();
-  qDebug()<<"E...";
+
 if (digits==1)
      {
-       qDebug()<<"E0";
       return units[rNumber]+cOut;
      }
-qDebug()<<digits;
+
  if(digits==2)
-    {
-       qDebug()<<"E1...";
-  //QString zxc=getTens(rNumber,Rubles,cOut);
-  return getTens(Rubles[0],Rubles[1])+cOut;
-//     if(rNumber>=10&&rNumber<20){
-//     if(rNumber==1)
-//     return uniqs[rNumber-10]+" "+onerub+cOut;
-//     if(rNumber>1&&rNumber<5)
-//         return uniqs[rNumber-10]+" "+rublia+cOut;
-//     if(rNumber>=5)
-//           return uniqs[rNumber-10]+" "+ruble+cOut;
-//     //return "digits is 2";
-//     }
-//     if(rNumber>=20)
-//     {
-//        QString s1=Rubles[0];
-//        int n1=s1.toInt();
-//        if(Rubles[1]==0)
-//            return tens[n1-1]+" "+getEnding(6)+cOut;
-//        s1=Rubles[1];
-//        int n2=s1.toInt();
-//         return tens[n1-1]+" "+units[n2]+" "+getEnding(n2)+cOut;
-//     }
-    qDebug()<<"E2...";
-    }
+     {
+      return getTens(Rubles[0],Rubles[1])+cOut;
+     }
+
  if(digits==3)
  {
-  qDebug()<<"E3...";
    return getHundreds(Rubles[0],Rubles[1],Rubles[2])+cOut;
-//     QString t=getTens(Rubles[1],Rubles[2],cOut);
-//     QString hndr=Rubles[0];
-     //int h=reinterpret_cast<int>(hndr);
-     //return hundreds[hndr.toInt()-1]+" "+t;
-
  }
- qDebug()<<"E4...";
+
  if(digits==4)
  {
-       qDebug()<<"E5...";
   QString four=getTens(Rubles[2],Rubles[3]);
   QString Hundred=Rubles[1];
   Hundred=hundreds[Hundred.toInt()-1]+" "+four+cOut;
@@ -259,12 +203,11 @@ qDebug()<<digits;
       return dve+" "+thousands+" "+Hundred;
   }
   return units[(four.toInt())]+" "+thousands+" "+Hundred;
-    qDebug()<<"E6...";
  }
+
  if(digits==5)
  {
      QString t=getTens(Rubles[3],Rubles[4]);
-
      QString Hundred=Rubles[2];
      Hundred=hundreds[Hundred.toInt()-1]+" "+t+cOut;
      QString r=getTens(Rubles[0],Rubles[1]);
@@ -274,16 +217,11 @@ qDebug()<<digits;
      r+=" ";
      r+=Hundred;
      return r;
-     //134567,12
 
  }
  if(digits==6)
  {
-     //123 123
      QString h1=getHundreds(Rubles[0],Rubles[1],Rubles[2]);
-//     h1.remove(ruble);
-//     h1.remove(rublia);
-//     h1.remove(onerub);
      trim(h1);
      QString fml=getEndingThousand(Rubles[3]);
      h1+=fml;
@@ -293,26 +231,9 @@ qDebug()<<digits;
  if(digits==7)
  {
      QString h1=getHundreds(Rubles[1],Rubles[2],Rubles[3]);
-//     h1.remove(ruble);
-//     h1.remove(rublia);
-//     h1.remove(onerub);
-//     h1+=ttt;
-//     if(h1.contains("Один"))
-//       {
-//         h1.replace("Один","Одна");
-//         h1.remove(ttt);
-//         h1+=thousand;
-//     }
-//     if(h1.contains("Два"))
-//     {
-//         h1.replace("Два","Две");
-//     }
      trim(h1);
      QString fml=getEndingThousand(Rubles[3]);
      h1+=fml;
-    // qDebug()<<"****/n"<<getEndingThousand(Rubles[3])<<"****/n";
-     //h1+=getEndingThousand(Rubles[3]);
-
 
      QString h2=getHundreds(Rubles[4],Rubles[5],Rubles[6]);
      QString ttmp=Rubles[0];
@@ -328,30 +249,11 @@ qDebug()<<digits;
  }
  if(digits==8)
  {
-    //
-     // Написать work around для того, когда в getTens встречается 00. Юзать QString::insert ,
-     // вставлять перед запятой getEnding();
-      //
 
-     //
-     //
-     // NOT WORKING
-     qDebug()<<"XXXXXXXXXXX";
-     qDebug()<<"          ";
-     qDebug()<<Rubles[0];
-     qDebug()<<Rubles[1];
-     qDebug()<<Rubles[2];
-     qDebug()<<Rubles[3];
-     qDebug()<<Rubles[4];
-     qDebug()<<Rubles[5];
-     qDebug()<<Rubles[6];
-     qDebug()<<Rubles[7];
-     qDebug()<<"          ";
-       qDebug()<<"XXXXXXXXXXX";
      QString h1=getHundreds(Rubles[2],Rubles[3],Rubles[4]);
      QString h2=getHundreds(Rubles[5],Rubles[6],Rubles[7]);
      QString t1=getTens(Rubles[0],Rubles[1]);
-    // QString t1="Бурда";
+
      trim(h1);
      t1.remove(ruble);
      t1.remove(rublia);
@@ -363,6 +265,14 @@ qDebug()<<digits;
  }
 
  return "CЛИШКОМ БОЛЬШОЕ ЧИСЛО";
+}
+
+QString words::transist(double Rubles)
+{
+
+return QString("Not yet implemented");
+
+
 }
 
 
